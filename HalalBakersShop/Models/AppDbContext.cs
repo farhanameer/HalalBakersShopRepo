@@ -33,6 +33,13 @@ namespace HalalBakersShop.Models
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 3, CategoryName = "Mixed Biscuits" });
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 4, CategoryName = "Pizza's" });
 
+            var role = new IdentityRole
+            {
+                Name="Admin"
+            };
+            
+
+
             //seed Itemss
 
             modelBuilder.Entity<Items>().HasData(new Items

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace HalalBakersShop.TagHelpers
@@ -17,6 +18,12 @@ namespace HalalBakersShop.TagHelpers
 
             output.Attributes.SetAttribute("href", "mailto:" + Address);
             output.Content.SetContent(Content);
+
+            
         }
+
+
+
+        
     }
 }

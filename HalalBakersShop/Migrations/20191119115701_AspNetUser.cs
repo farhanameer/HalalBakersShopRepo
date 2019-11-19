@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HalalBakersShop.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class AspNetUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
