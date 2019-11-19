@@ -124,7 +124,7 @@ namespace HalalBakersShop.Controllers
         {
             List<AdminPendingOrders> details = new List<AdminPendingOrders>();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var orderID = _appDbContext.Orders.Where(x => x.UserID == userId && x.InProcess == true).ToList();
+            var orderID = _appDbContext.Orders.Where(x =>  x.InProcess == true).ToList();
             if (orderID != null && orderID.Count!=0)
             {
                 foreach (var order in orderID)
@@ -164,7 +164,7 @@ namespace HalalBakersShop.Controllers
         public IActionResult AllDeliveredOrders()
         {
             List<OrderDetailsForUser> details = new List<OrderDetailsForUser>();
-            List<Order> orders = _appDbContext.Orders.ToList();
+            List<Order> orders = _appDbContext.Orders.Where(x => x.IsDelivered == true).ToList();
             if (orders.Count!=0)
             {
                 foreach (var order in orders)
