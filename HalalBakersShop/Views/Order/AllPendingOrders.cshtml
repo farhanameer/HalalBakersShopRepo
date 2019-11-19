@@ -1,0 +1,19 @@
+﻿@model IEnumerable<HalalBakersShop.Models.AdminPendingOrders>
+
+@{
+    ViewData["Title"] = "All Pending Orders";
+}
+
+<h2>All Pending Orders</h2>
+
+@if (ViewBag.cat == true)
+{
+    <h3>No Pending Orders Found</h3>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_AdminPendingOrders", item)
+    }
+}

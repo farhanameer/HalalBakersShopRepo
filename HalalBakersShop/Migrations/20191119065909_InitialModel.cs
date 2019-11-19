@@ -79,7 +79,10 @@ namespace HalalBakersShop.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 25, nullable: false),
                     Email = table.Column<string>(maxLength: 50, nullable: false),
                     OrderTotal = table.Column<decimal>(nullable: false),
-                    OrderPlaced = table.Column<DateTime>(nullable: false)
+                    OrderPlaced = table.Column<DateTime>(nullable: false),
+                    UserID = table.Column<string>(nullable: true),
+                    IsDelivered = table.Column<bool>(nullable: false),
+                    InProcess = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

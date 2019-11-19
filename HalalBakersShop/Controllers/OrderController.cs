@@ -66,7 +66,7 @@ namespace HalalBakersShop.Controllers
             List<OrderDetailsForUser> details = new List<OrderDetailsForUser>();
             var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);
             var orderID = _appDbContext.Orders.Where(x => x.UserID == userId && x.InProcess == true).ToList() ;
-            if (orderID!=null)
+            if (orderID!=null && orderID.Count != 0)
             {
                 foreach (var order in orderID)
                 {
@@ -96,7 +96,7 @@ namespace HalalBakersShop.Controllers
             List<OrderDetailsForUser> details = new List<OrderDetailsForUser>();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var orderID = _appDbContext.Orders.Where(x => x.UserID == userId && x.IsDelivered == true).ToList();
-            if (orderID != null)
+            if (orderID != null && orderID.Count != 0)
             {
                 foreach (var order in orderID)
                 {
@@ -119,5 +119,75 @@ namespace HalalBakersShop.Controllers
             ViewBag.cat = true;
             return View();
         }
+
+        public IActionResult AllPendingOrders()
+        {
+            List<AdminPendingOrders> details = new List<AdminPendingOrders>();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var orderID = _appDbContext.Orders.Where(x => x.UserID == userId && x.InProcess == true).ToList();
+            if (orderID != null && orderID.Count!=0)
+            {
+                foreach (var order in orderID)
+                {
+                    List<OrderDetail> orderDetails = _appDbContext.OrderDetails.Where(x => x.OrderId == order.OrderId).ToList();
+                    foreach (var detail in orderDetails)
+                    {
+                        AdminPendingOrders orderDetail = new AdminPendingOrders();
+                        orderDetail.OrderID = order.OrderId;
+                        orderDetail.Name = $"{order.FirstName} {order.LastName}";
+                        orderDetail.DateTime = order.OrderPlaced;
+                        var itemName = _appDbContext.Items.Where(x => x.ItemsId == detail.ItemsId).FirstOrDefault();
+                        orderDetail.ItemName = itemName.Name;
+                        orderDetail.Quantity = detail.Amount;
+                        orderDetail.IsDelivered = false;
+                        orderDetail.InProccess = true;
+                        details.Add(orderDetail);
+                    }
+                }
+                return View(details);
+            }
+            ViewBag.cat = true;
+            return View();
+        }
+
+
+        public IActionResult Edit(int id)
+        {
+            Order order = _appDbContext.Orders.Where(x => x.OrderId == id).FirstOrDefault();
+            order.IsDelivered = true;
+            order.InProcess = false;
+            _appDbContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public IActionResult AllDeliveredOrders()
+        {
+            List<OrderDetailsForUser> details = new List<OrderDetailsForUser>();
+            List<Order> orders = _appDbContext.Orders.ToList();
+            if (orders.Count!=0)
+            {
+                foreach (var order in orders)
+                {
+                    List<OrderDetail> orderDetails = _appDbContext.OrderDetails.Where(x => x.OrderId == order.OrderId).ToList();
+                    foreach (var orderDetail in orderDetails)
+                    {
+                        Items item = _appDbContext.Items.Where(x => x.ItemsId == orderDetail.ItemsId).FirstOrDefault();
+                        OrderDetailsForUser orderDetailsForUser = new OrderDetailsForUser();
+                        orderDetailsForUser.Name = $"{order.FirstName} {order.LastName}";
+                        orderDetailsForUser.DateTime = order.OrderPlaced;
+                        orderDetailsForUser.ItemName = item.Name;
+                        orderDetailsForUser.Quantity = orderDetail.Amount;
+                        orderDetailsForUser.IsDelivered = true;
+                        orderDetailsForUser.InProccess = false;
+                        details.Add(orderDetailsForUser);
+                    }
+                }
+                return View(details);
+            }
+            ViewBag.cat = true;
+            return View();
+        }
+        
     }
 }

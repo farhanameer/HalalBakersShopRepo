@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<HalalBakersShop.ViewModels.OrderDetailsForUser>
+
+@{
+    ViewData["Title"] = "PendingOrders";
+}
+
+    <h2>All Delivered Orders</h2>
+
+
+@if (ViewBag.cat == true)
+{
+    <h2>No Delivered Orders Found</h2>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_OrderDetailsView", item)
+    }
+}
+
