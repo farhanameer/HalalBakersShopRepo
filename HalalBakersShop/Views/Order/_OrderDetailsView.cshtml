@@ -1,0 +1,54 @@
+﻿@model HalalBakersShop.ViewModels.OrderDetailsForUser
+
+    <hr />
+    <div class="row">
+
+        <div class="col-md-2">
+            Name
+        </div>
+        <div class="col-md-2">
+            Date
+        </div>
+        <div class="col-md-2">
+            Item Name
+        </div>
+        <div class="col-md-2">
+            Quantity
+        </div>
+        <div class="col-md-2">
+            Status
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.DateTime)
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.ItemName)
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.Quantity)
+        </div>
+        @if (Model.InProccess)
+        {
+            <div class="col-md-2">
+                <i class="fa fa-clock-o" style="font-size:30px; color:rosybrown;"></i>
+            </div>
+        }
+        else if (Model.IsDelivered)
+        {
+            <div class="col-md-2">
+                <i class="fa fa-check" style="font-size:30px; color:green;"></i>
+            </div>
+        }
+    </div>
+   
+
+
+
+

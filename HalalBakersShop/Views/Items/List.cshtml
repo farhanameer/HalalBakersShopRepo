@@ -1,0 +1,12 @@
+﻿@model ItemsListViewModel
+
+
+
+    <div style="height:95vh;">
+        <h1>All Items</h1>
+
+        @foreach (var item in Model.Items)
+        {
+            <partial name="_ItemsCard" model="item" />
+        }
+    </div>
