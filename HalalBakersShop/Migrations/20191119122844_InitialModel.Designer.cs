@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HalalBakersShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191119115701_AspNetUser")]
-    partial class AspNetUser
+    [Migration("20191119122844_InitialModel")]
+    partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
